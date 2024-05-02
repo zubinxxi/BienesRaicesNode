@@ -99,7 +99,9 @@ const categoria = async (req, res) =>{
 }
 
 const noEncontrado = (req, res) =>{
-    
+    res.render('404', {
+        pagina: '¡Página no encontrada!'
+    })
 }
 
 const buscador = (req, res) =>{
