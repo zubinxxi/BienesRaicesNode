@@ -52,10 +52,19 @@ const categoria = async (req, res) =>{
 
     const { id } = req.params
 
+    // Comprobar que exista la categoría
+    const categoria = await Categoria.findByPk(id)
+
+    if(!categoria){
+        return res.redirect('/404')
+    }
+
+    // Obtener las propiedades de la categoría
+
     
 
-    const [propiedades, total ] = await Promise.all([
-            
+    const [categorias, propiedades, total ] = await Promise.all([
+        Categoria.findAll({raw: true}), 
         Propiedad.findAll({
             where: {
                 categoriaId: id
@@ -78,6 +87,13 @@ const categoria = async (req, res) =>{
         })
 
     ])
+
+    res.render('categoria', {
+        pagina: `${categoria.nombre}s en Venta`,
+        categorias,
+        propiedades,
+        total
+    })
 
     
 }
