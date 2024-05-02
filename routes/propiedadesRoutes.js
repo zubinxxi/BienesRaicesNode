@@ -3,6 +3,7 @@ import { body } from 'express-validator'
 import { admin, crear, guardar, agregarImagen, almacenarImagen, editar, guardarCambios, eliminar, mostrarPropiedad } from "../controllers/propiedadesController.js"
 import protegerRuta from '../middleware/protegerRuta.js'
 import upload from '../middleware/subirImagen.js'
+import identificarUsuario from '../middleware/identificarUsuario.js'
 
 //Crear la app
 const router = express.Router()
@@ -45,6 +46,6 @@ router.post('/propiedades/editar/:id',
 router.post('/propiedades/eliminar/:id', protegerRuta, eliminar)
 
 // Área pública
-router.get('/propiedad/:id', mostrarPropiedad)
+router.get('/propiedad/:id', identificarUsuario, mostrarPropiedad)
 
 export default router
