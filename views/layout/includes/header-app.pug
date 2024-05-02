@@ -17,6 +17,7 @@ if categorias
                     a(href=`/categoria/${categoria.id}` class="text-sm font-bold uppercase text-white")= categoria.nombre
             
             form(action="/buscador" method="POST" class="flex gap-3 items-center")
+                input(type="hidden" name="_csrf" value= csrfToken)
                 label(for="termino" class="text-sm uppercase font-bold text-white") Busqueda 
                 input(type="text" id="termino" name="termino" placeholder="Buscar Propiedades" class="text-sm p-2 rounded-lg shadow")
                 
