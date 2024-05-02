@@ -829,6 +829,12 @@ video {
 .pt-10 {
   padding-top: 2.5rem;
 }
+.pt-5 {
+  padding-top: 1.25rem;
+}
+.pt-3 {
+  padding-top: 0.75rem;
+}
 .text-center {
   text-align: center;
 }
@@ -856,6 +862,14 @@ video {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -871,8 +885,14 @@ video {
 .font-semibold {
   font-weight: 600;
 }
+.font-thin {
+  font-weight: 100;
+}
 .uppercase {
   text-transform: uppercase;
+}
+.italic {
+  font-style: italic;
 }
 .leading-5 {
   line-height: 1.25rem;
