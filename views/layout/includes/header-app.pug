@@ -12,9 +12,12 @@ header.bg-indigo-600.p-2
 if categorias 
     div(class="bg-indigo-700 py-2 hidden lg:block")
         div(class="container mx-auto flex justify-between")
-            each categoria in categorias
-                a(href=`/categoria/${categoria.id}` class="text-sm font-bold uppercase text-white")= categoria.nombre
-            //-a(href="/categorias/12" class="text-sm font-bold uppercase text-white") Departamentos
-            //-a(href="/categorias/13" class="text-sm font-bold uppercase text-white") Bodegas
-            //-a(href="/categorias/14" class="text-sm font-bold uppercase text-white") Terrenos
-            //-a(href="/categorias/15" class="text-sm font-bold uppercase text-white") Cabañas
+            nav(class="flex gap-4 items-center")
+                each categoria in categorias
+                    a(href=`/categoria/${categoria.id}` class="text-sm font-bold uppercase text-white")= categoria.nombre
+            
+            form(action="/buscador" method="POST" class="flex gap-3 items-center")
+                label(for="termino" class="text-sm uppercase font-bold text-white") Busqueda 
+                input(type="text" id="termino" name="termino" placeholder="Buscar Propiedades" class="text-sm p-2 rounded-lg shadow")
+                
+                input(type="submit" value="buscar" class="text-sm bg-indigo-800 hover:bg-indigo-400 rounded-lg text-white uppercase font-bold p-2 cursor-pointer")
