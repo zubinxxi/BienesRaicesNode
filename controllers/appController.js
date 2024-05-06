@@ -119,9 +119,9 @@ const buscador = async (req, res) =>{
 
     const { termino } = req.body 
 
-    // Validar qu termino no este vacio
+    // Validar que termino no esté vacio
     if(!termino){
-        return res.redirect('back')
+        return res.redirect('/')
     }
 
     //Consultar las propiedades
