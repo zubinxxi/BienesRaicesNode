@@ -1,6 +1,7 @@
-import {unlink} from 'node:fs/promises'
+import { unlink } from 'node:fs/promises'
 import { validationResult } from 'express-validator'
-import {Categoria, Precio, Propiedad} from '../models/index.js'
+import { Categoria, Precio, Propiedad, Mensaje } from '../models/index.js'
+import { esVendedor } from '../helpers/index.js'
 
 
 const admin = async (req, res) =>{
@@ -352,7 +353,6 @@ const mostrarPropiedad = async (req, res) =>{
     const categorias = await Categoria.findAll()
     const {id} = req.params
 
-    console.log(req.usuario)
 
     // Comprobar que la propiedad exista
     const propiedad  = await Propiedad.findByPk(id, {
@@ -372,14 +372,90 @@ const mostrarPropiedad = async (req, res) =>{
         return res.redirect('/404')
     }
 
+
+   
+
     res.render('propiedades/mostrar', {
         propiedad,
         pagina: propiedad.titulo,
         categorias,
         csrfToken: req.csrfToken(),
-        usuario: req.usuario
+        usuario: req.usuario,
+        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId)
         
     })
+}
+
+// Enviar mensje
+const enviarMensaje = async (req, res) =>{
+    
+    const categorias = await Categoria.findAll()
+    const { id } = req.params
+
+
+    // Comprobar que la propiedad exista
+    const propiedad  = await Propiedad.findByPk(id, {
+        include: [
+            {
+                model: Categoria, 
+                as: 'categoria'
+            },
+            {
+                model: Precio,
+                as: 'precio'
+            }
+        ]
+    })
+
+    if(!propiedad){
+        return res.redirect('/404')
+    }
+
+    // Renderizar los errores
+
+    let resultado = validationResult(req)
+
+    if(!resultado.isEmpty()){
+
+        return res.render('propiedades/mostrar', {
+            propiedad,
+            pagina: propiedad.titulo,
+            categorias,
+            csrfToken: req.csrfToken(),
+            usuario: req.usuario,
+            esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId),
+            errores: resultado.array()
+            
+
+        })
+    }
+
+
+    // Almacenar los mensajes
+    const { mensaje } = req.body
+    const { id: propiedadId } = req.params
+    const { id: usuarioId} = req.usuario
+    
+    
+    await Mensaje.create({
+        mensaje: mensaje,
+        propiedadId: propiedadId,
+        usuarioId: usuarioId
+    })
+
+    res.redirect('/')
+
+    /*res.render('propiedades/mostrar', {
+        propiedad,
+        pagina: propiedad.titulo,
+        categorias,
+        csrfToken: req.csrfToken(),
+        usuario: req.usuario,
+        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioId),
+        enviado: true
+        
+    })*/
+
 }
 
 export{
@@ -391,5 +467,6 @@ export{
     editar, 
     guardarCambios,
     eliminar,
-    mostrarPropiedad
+    mostrarPropiedad,
+    enviarMensaje
 }
