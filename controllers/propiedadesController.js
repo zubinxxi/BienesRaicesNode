@@ -8,9 +8,9 @@ const admin = async (req, res) =>{
 
     // Leer QueryString
     const {pagina: paginaActual} = req.query
-    console.log(paginaActual)
+    //console.log(paginaActual)
 
-
+    
     const expresion = /^[1-9]$/
 
     if(!expresion.test(paginaActual)){
@@ -64,7 +64,8 @@ const admin = async (req, res) =>{
             paginaActual: +paginaActual,
             total,
             offset,
-            limit
+            limit,
+            idUsuario:req.usuario
         })
     } catch (error) {
         console.log(error)
