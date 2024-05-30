@@ -100,7 +100,8 @@ const categoria = async (req, res) =>{
         categorias,
         propiedades,
         total,
-        csrfToken: req.csrfToken()
+        csrfToken: req.csrfToken(),
+        idUsuario:req.usuario
     })
 
     
@@ -114,7 +115,8 @@ const noEncontrado = async (req, res) =>{
     res.render('404', {
         pagina: '¡Página no encontrada!',
         categorias,
-        csrfToken: req.csrfToken()
+        csrfToken: req.csrfToken(),
+        idUsuario:req.usuario
     })
 }
 
@@ -149,7 +151,8 @@ const buscador = async (req, res) =>{
         pagina: 'Resultado de la busqueda',
         propiedades,
         categorias,
-        csrfToken: req.csrfToken()
+        csrfToken: req.csrfToken(),
+        idUsuario:req.usuario
     })
 
 }
