@@ -6,8 +6,14 @@ header.bg-indigo-600.p-2
                 span.font-normal Raices
         
         nav(class="my-5 text-sm md:flex md:items-center md:gap-3 font-bold text-white") 
-            a(href="/registro" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Crear Cuenta
-            a(href="/login" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Iniciar Sesión
+            if !idUsuario 
+                a(href="/registro" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Crear Cuenta
+                a(href="/login" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Iniciar Sesión
+            else 
+                a(href="/mis-propiedades" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Mis Propiedades
+                form(action="/cerrar-sesion" method="POST")
+                    input(type="hidden" name="_csrf" value= csrfToken)
+                    input(type="submit" class="bg-indigo-800 py-2 px-10 rounded-lg hover:bg-indigo-500" value="Cerrar Sesión")
 
 if categorias 
     div(class="bg-indigo-700 py-2 hidden lg:block")

@@ -6,6 +6,10 @@ header.bg-indigo-600.p-0
                 span.font-normal Raices
         
         nav(class="my-5 text-sm md:flex md:items-center md:gap-3 font-bold text-white") 
-            a(href="/mis-propiedades" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Mis Propiedades
+            if idUsuario 
+            a(href="/" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Inicio
             a(href="#" class="hover:bg-indigo-400 py-1 px-3 rounded-md") Mi Perfil
-            a(href="#" class="bg-indigo-800 py-2 px-10 rounded-lg hover:bg-indigo-500") Cerrar Sesión
+
+            form(action="/cerrar-sesion" method="POST")
+                input(type="hidden" name="_csrf" value= csrfToken)
+                input(type="submit" class="bg-indigo-800 py-2 px-10 rounded-lg hover:bg-indigo-500" value="Cerrar Sesión")
