@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 import csrf from 'csurf'
 import cookieParser from 'cookie-parser'
 import usuarioRoutes from './routes/usuarioRoutes.js'
@@ -34,7 +35,7 @@ app.set('views', './views')
 
 
 // Carpeta Pública
-app.use(express.static('public'))
+app.use(express.static(path.join('public')))
 
 // Routing
 app.use('/', usuarioRoutes)
